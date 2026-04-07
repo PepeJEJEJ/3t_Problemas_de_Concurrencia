@@ -22,5 +22,5 @@
  start transaction;
  select asientos_disponibles from sesiones where id=1;
  update sesiones set asientos_disponibles = asientos_disponibles - 1 where id=1;
- 
+ rollback;
  -- FALTA DE PAGO Y CANCELAMOS
