@@ -1,0 +1,18 @@
+# Archivos basura de Windows
+desktop.ini
+Thumbs.db
+
+# Google Drive
+*.tmp
+*.lnk
+
+# Carpetas del sistema
+$RECYCLE.BIN/
+System Volume Information/
+
+# Archivos de VSCode (si usas)
+.vscode/
+
+# Archivos SQL temporales
+*.bak
+*.tmp
