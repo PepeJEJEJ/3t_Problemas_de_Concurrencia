@@ -130,3 +130,81 @@ SELECT * FROM padre WHERE nombre = 'X' FOR UPDATE;
 Bloquea la fila del padre durante la operación.
 
 ---
+# 📌 7.X Ejemplos prácticos de bloqueos
+
+A continuación se muestran ejemplos reales de cómo funcionan los bloqueos en SQL, aplicados sobre la base de datos `tienda_bloqueo`.
+
+---
+
+## 🟥 Bloqueo de tabla (Nivel 1)
+
+Bloquea **toda la tabla**, impidiendo que otras transacciones lean o modifiquen cualquier fila hasta que se libere.
+
+### 🧪 Ejemplo (MySQL)
+
+**Consola 1**
+```sql
+START TRANSACTION;
+LOCK TABLES productos WRITE;   -- 🔒 Bloqueo total de la tabla
+SELECT * FROM productos;
+```
+
+**Consola 2**
+```sql
+SELECT * FROM productos;                     -- ❌ Espera
+UPDATE productos SET stock = stock - 1;      -- ❌ Espera
+```
+
+**Consola 1 libera**
+```sql
+UNLOCK TABLES;
+COMMIT;
+```
+
+✔ La otra consola continúa.
+
+---
+
+## 🟧 Bloqueo de fila (Nivel 2)
+
+Solo se bloquea **una fila concreta**, permitiendo trabajar con el resto de la tabla.
+
+### 🧪 Ejemplo (MySQL / Oracle)
+
+**Consola 1**
+```sql
+START TRANSACTION;
+SELECT * FROM productos WHERE id = 1 FOR UPDATE;  -- 🔒 Bloqueo de fila
+UPDATE productos SET stock = stock - 1 WHERE id = 1;
+```
+
+**Consola 2**
+```sql
+UPDATE productos SET stock = stock - 1 WHERE id = 1;   -- ❌ Bloqueado
+UPDATE productos SET stock = stock - 1 WHERE id = 2;   -- ✔ Funciona
+```
+
+---
+
+## 🟨 Bloqueo compartido (S) — *EL 3º QUE PEDISTE*
+
+Permite leer, pero **no permite modificar** mientras dure el bloqueo.  
+*(Disponible en MySQL; Oracle no lo soporta.)*
+
+### 🧪 Ejemplo (MySQL)
+
+```sql
+START TRANSACTION;
+SELECT * FROM productos 
+WHERE id = 1 
+LOCK IN SHARE MODE;   -- 🔒 Bloqueo S
+```
+
+**Consola 2**
+```sql
+UPDATE productos SET stock = stock - 1 WHERE id = 1;   -- ❌ Bloqueado
+```
+
+✔ La lectura está permitida, pero la escritura queda bloqueada.
+
+---
