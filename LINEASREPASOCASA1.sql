@@ -43,3 +43,11 @@ START TRANSACTION;
 SELECT * FROM personas 
 WHERE id = 1 
 LOCK IN SHARE MODE;
+
+start transaction;
+lock tables personas write;
+select * from personas;
+
+start transaction;
+SELECT * FROM personas WHERE id = 1 FOR UPDATE;
+UPDATE personas SET sueldo = sueldo - 1.0 WHERE id = 1;

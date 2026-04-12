@@ -7,3 +7,4 @@ select * from personas where id = 1;
 select * from personas where id = 2;
 update personas set sueldo = sueldo + 1.0 where id = 2;
 UPDATE personas SET sueldo = sueldo - 1 WHERE id = 1;
+UPDATE personas SET sueldo = sueldo - 1.0 WHERE id = 1;
