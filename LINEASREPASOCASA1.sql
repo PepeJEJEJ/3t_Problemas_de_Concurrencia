@@ -32,6 +32,7 @@ commit;
 start transaction;
 SELECT * FROM personas WHERE id = 1 FOR UPDATE;
 UPDATE personas SET sueldo = sueldo - 1 WHERE id = 1;
+COMMIT;
 
 start transaction;
 lock tables personas write; 
@@ -43,11 +44,29 @@ START TRANSACTION;
 SELECT * FROM personas 
 WHERE id = 1 
 LOCK IN SHARE MODE;
+COMMIT;
 
 start transaction;
 lock tables personas write;
 select * from personas;
+COMMIT;
 
 start transaction;
 SELECT * FROM personas WHERE id = 1 FOR UPDATE;
 UPDATE personas SET sueldo = sueldo - 1.0 WHERE id = 1;
+COMMIT;
+
+start transaction;
+select * from personas;
+lock tables personas write;
+lock tables personas write;
+lock tables personas write;
+lock tables personas write;
+lock tables personas write;
+lock tables personas write;
+lock tables personas write;
+lock tables personas write;
+lock tables personas write;
+lock tables personas write;
+select * from personas;
+COMMIT;
