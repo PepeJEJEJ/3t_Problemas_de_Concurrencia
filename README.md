@@ -186,7 +186,7 @@ UPDATE productos SET stock = stock - 1 WHERE id = 2;   -- ✔ Funciona
 
 ---
 
-## 🟨 Bloqueo compartido (S)
+## 🟨 Bloqueo compartido (Nivel 3)
 
 Permite leer, pero **no permite modificar** mientras dure el bloqueo.  
 *(Disponible en MySQL; Oracle no lo soporta.)*
