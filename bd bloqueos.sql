@@ -14,7 +14,7 @@ insert into productos values
 (3,'Teclado',5);
 
 -- nivel 1 de bloqueo (tabla)
--- SI UNA SCONSOLA BLOQUEA UNA TABLA, LA OTRA NO SE PUEDE TRABAJAR HASTA QUE SE LIBERE
+-- SI UNA SUBCONSULTA BLOQUEA UNA TABLA, LA OTRA NO SE PUEDE TRABAJAR HASTA QUE SE LIBERE
 
 start transaction;
 lock tables productos write;
