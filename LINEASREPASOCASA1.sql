@@ -70,3 +70,28 @@ lock tables personas write;
 lock tables personas write;
 select * from personas;
 COMMIT;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+start transaction;
+select * from personas;
+lock tables personas read;
+select * from personas;
+commit;
