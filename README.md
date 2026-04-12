@@ -130,7 +130,7 @@ SELECT * FROM padre WHERE nombre = 'X' FOR UPDATE;
 Bloquea la fila del padre durante la operación.
 
 ---
-# 📌 7.X Ejemplos prácticos de bloqueos
+# 📌 7. Ejemplos prácticos de bloqueos
 
 A continuación se muestran ejemplos reales de cómo funcionan los bloqueos en SQL, aplicados sobre la base de datos `tienda_bloqueo`.
 
