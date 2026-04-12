@@ -66,12 +66,12 @@ Existen dos enfoques:
 ### 🔹 Bloqueo pesimista  
 Bloquea el recurso **antes** de modificarlo.  
 Evita conflictos, pero reduce concurrencia.
-AVISA EN MEDIO
+(AVISA EN MEDIO).
 
 ### 🔹 Bloqueo optimista  
 Solo bloquea al **confirmar**.  
 Útil cuando los conflictos son poco probables.
-AVISA AL FINAL
+(AVISA AL FINAL).
 
 ### 🔹 Reglas de bloqueo (Oracle)  
 - Lecturas no bloquean escrituras  
