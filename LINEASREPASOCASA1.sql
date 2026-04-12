@@ -95,3 +95,7 @@ select * from personas;
 lock tables personas read;
 select * from personas;
 commit;
+
+start transaction;
+select * from personas where id=1 for update;
+commit;
