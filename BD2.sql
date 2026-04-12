@@ -26,3 +26,5 @@ select * from cuentas;
 savepoint sp1;-- PUNTO DE GUARDADO
 update cuentas set saldo = saldo - 100 where id = 1;
 -- Actualizar pa ir al savepoint
+ROLLBACK TO sp1;
+-- IR AL SAVEPOINT
