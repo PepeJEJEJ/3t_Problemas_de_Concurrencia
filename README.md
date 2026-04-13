@@ -28,7 +28,7 @@ Una **transacción** es un conjunto de operaciones SQL que se ejecutan como una 
 - En distribuidas: *Partially committed / Prepared*
 
 ### 🔹 Comandos principales  
-- `START TRANSACTION` / `BEGIN`  
+- `START TRANSACTION`
 - `COMMIT`  
 - `ROLLBACK`
 
