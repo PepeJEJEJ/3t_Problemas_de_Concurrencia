@@ -7,9 +7,9 @@ SET SQL_SAFE_UPDATES = 0;
 Start Transaction;
 savepoint inicio; -- POR SI ACASO
 -- Resta 200 € a la cuenta 1.
-select * from cuentas where id_cuenta = 1 for update;
+select * from cuentas where id_cuenta = 1 for update; -- PA VER ANTES
 update cuentas set saldo = saldo - 200.00 where id_cuenta = 1;
-select * from cuentas where id_cuenta = 1 for update;
+select * from cuentas where id_cuenta = 1 for update; -- PA VER CON LOS CAMBIOS
 -- Suma 200 € a la cuenta 2.
 select * from cuentas where id_cuenta = 2 for update;
 update cuentas set saldo = saldo + 200.00 where id_cuenta = 2;
@@ -48,4 +48,42 @@ INSERT INTO movimientos (id_cuenta, tipo, importe) VALUES (1, 'comision', 20.00)
 -- Consulta el estado de cuentas y movimientos.
 SELECT * FROM cuentas;
 SELECT * FROM movimientos;
+-- Ejecuta ROLLBACK TO SAVEPOINT.
+ROLLBACK TO SAVEPOINT s1;
+commit;
+
+-- 3
+
+-- Inicia una transacción.
+Start Transaction;
+-- Bloquea la cuenta 1 para actualización mediante FOR UPDATE.
+select * from cuentas where id_cuenta = 1 for update;
+-- Ejecuta COMMIT
+COMMIT;
+
+-- 4
+
+-- Inicia una transacción.
+Start Transaction;
+-- Realiza una lectura con bloqueo compartido sobre la cuenta 2.
+select * from cuentas where id_cuenta = 2 lock in share mode;
+-- Cierra la transacción.
+commit;
+
+-- 5
+
+-- Inicia una transacción.
+START TRANSACTION;
+-- Bloquea la tabla cuentas completa para escritura.
+LOCK TABLES cuentas read;
+SELECT * FROM cuentas;
+-- LIBERAR EL BLOQUEO
+commit;
+
+-- Inicia una transacción.
+START TRANSACTION;
+-- Bloquea la tabla cuentas completa para lectura.
+LOCK TABLES cuentas read;
+SELECT * FROM cuentas;
+-- LIBERAR EL BLOQUEO
 commit;
