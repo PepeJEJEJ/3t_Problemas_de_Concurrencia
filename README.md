@@ -208,8 +208,6 @@ UPDATE productos SET stock = stock - 1 WHERE id = 1;   -- ❌ Bloqueado
 ✔ La lectura está permitida, pero la escritura queda bloqueada.
 
 ---
-
-```markdown
 ## 🟦 Bloqueo exclusivo (Exclusive Lock — X Lock)
 
 Un **bloqueo exclusivo** impide que cualquier otra transacción **lea o modifique** la fila afectada.  
