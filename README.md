@@ -208,3 +208,41 @@ UPDATE productos SET stock = stock - 1 WHERE id = 1;   -- ❌ Bloqueado
 ✔ La lectura está permitida, pero la escritura queda bloqueada.
 
 ---
+
+```markdown
+## 🟦 Bloqueo exclusivo (Exclusive Lock — X Lock)
+
+Un **bloqueo exclusivo** impide que cualquier otra transacción **lea o modifique** la fila afectada.  
+Es el bloqueo más restrictivo y se activa automáticamente cuando una transacción realiza operaciones de escritura:
+
+- `UPDATE`
+- `DELETE`
+- `INSERT`
+- `SELECT ... FOR UPDATE`
+
+Mientras exista un bloqueo exclusivo, ninguna otra transacción puede acceder a esa fila hasta que se haga `COMMIT` o `ROLLBACK`.
+
+### 🧪 Ejemplo (MySQL)
+
+**Consola 1**
+```sql
+START TRANSACTION;
+UPDATE productos 
+SET stock = stock - 1 
+WHERE id = 1;   -- 🔒 Bloqueo exclusivo sobre la fila
+```
+
+**Consola 2**
+```sql
+SELECT * FROM productos WHERE id = 1;                 -- ❌ Espera (no puede leer)
+UPDATE productos SET stock = stock - 1 WHERE id = 1;  -- ❌ Espera (no puede escribir)
+```
+
+**Consola 1**
+```sql
+COMMIT;   -- 🔓 Libera el bloqueo
+```
+
+✔ En cuanto se libera, la consola 2 continúa automáticamente.
+
+---
